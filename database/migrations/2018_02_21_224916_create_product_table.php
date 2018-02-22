@@ -88,6 +88,18 @@ class CreateProductTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('artists', function (Blueprint $table) {
+            $table->integer('id')->unique()->primary();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('artist_product', function (Blueprint $table) {
+            $table->integer('product_id');
+            $table->integer('artist_id');
+        });
+
     }
 
     /**
@@ -98,5 +110,7 @@ class CreateProductTable extends Migration
     public function down()
     {
         Schema::dropIfExists('products');
+        Schema::dropIfExists('artists');
+        Schema::dropIfExists('artist_product');
     }
 }

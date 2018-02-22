@@ -41,4 +41,7 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('styles', 'StyleController@index');
     Route::get('styles/{id}', 'StyleController@show');
+
+    Route::get('artists', 'ArtistController@index');
+    Route::get('artists/{id}', 'ArtistController@show');
 });
