@@ -160,6 +160,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Foundation Service Providers...
+         */
+        Aic\Hub\Foundation\ResourceServiceProvider::class,
+
     ],
 
     /*
