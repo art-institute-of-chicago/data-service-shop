@@ -24,7 +24,7 @@ class CreateProductTable extends Migration
             $table->string('title')->nullable();
             $table->string('title_sort')->nullable();
             $table->string('image_url')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->integer('priority')->nullable();
             $table->float('price')->nullable();
             $table->float('sale_price')->nullable();
@@ -39,9 +39,9 @@ class CreateProductTable extends Migration
             $table->integer('inventory')->nullable();
             $table->boolean('choking_hazard')->nullable();
             $table->boolean('back_order')->nullable();
-            $table->date('back_oder_due_date')->nullable();
+            $table->date('back_order_due_date')->nullable();
             $table->timestamp('source_created_at')->nullable()->useCurrent();
-            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamps();
         });
 
@@ -58,10 +58,20 @@ class CreateProductTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('category_product', function (Blueprint $table) {
+            $table->integer('product_id');
+            $table->integer('category_id');
+        });
+
         Schema::create('keywords', function (Blueprint $table) {
             $table->integer('id')->unique()->primary();
             $table->string('title')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('keyword_product', function (Blueprint $table) {
+            $table->integer('product_id');
+            $table->integer('keyword_id');
         });
 
         Schema::create('styles', function (Blueprint $table) {
@@ -70,10 +80,20 @@ class CreateProductTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('product_style', function (Blueprint $table) {
+            $table->integer('product_id');
+            $table->integer('style_id');
+        });
+
         Schema::create('origins', function (Blueprint $table) {
             $table->integer('id')->unique()->primary();
             $table->string('title')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('origin_product', function (Blueprint $table) {
+            $table->integer('product_id');
+            $table->integer('origin_id');
         });
 
         Schema::create('colors', function (Blueprint $table) {
@@ -82,10 +102,20 @@ class CreateProductTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('color_product', function (Blueprint $table) {
+            $table->integer('product_id');
+            $table->integer('color_id');
+        });
+
         Schema::create('stones', function (Blueprint $table) {
             $table->integer('id')->unique()->primary();
             $table->string('title')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('product_stone', function (Blueprint $table) {
+            $table->integer('product_id');
+            $table->integer('stone_id');
         });
 
         Schema::create('artists', function (Blueprint $table) {
@@ -110,6 +140,19 @@ class CreateProductTable extends Migration
     public function down()
     {
         Schema::dropIfExists('products');
+        Schema::dropIfExists('facets');
+        Schema::dropIfExists('categories');
+        Schema::dropIfExists('category_product');
+        Schema::dropIfExists('keywords');
+        Schema::dropIfExists('keyword_product');
+        Schema::dropIfExists('styles');
+        Schema::dropIfExists('product_style');
+        Schema::dropIfExists('origins');
+        Schema::dropIfExists('origin_product');
+        Schema::dropIfExists('colors');
+        Schema::dropIfExists('color_product');
+        Schema::dropIfExists('stones');
+        Schema::dropIfExists('product_stone');
         Schema::dropIfExists('artists');
         Schema::dropIfExists('artist_product');
     }
