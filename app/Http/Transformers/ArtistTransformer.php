@@ -12,6 +12,8 @@ class ArtistTransformer extends AbstractTransformer
 
         $data = [
             'id' => $artist->id,
+            'first_name' => $artist->first_name,
+            'last_name' => $artist->last_name,
         ];
 
         // Enables ?fields= functionality

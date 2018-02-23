@@ -52,8 +52,8 @@ class CreateProductTable extends Migration
         });
 
         Schema::create('categories', function (Blueprint $table) {
-            $table->integer('id')->unique()->primary();
-            $table->integer('parent_id')->nullable();
+            $table->integer('id');
+            $table->integer('parent_id');
             $table->string('title')->nullable();
             $table->timestamps();
         });
