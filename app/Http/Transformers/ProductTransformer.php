@@ -52,6 +52,8 @@ class ProductTransformer extends AbstractTransformer
             'style_titles' => $product->styles->pluck('title'),
             'artist_ids' => $product->artists->pluck('id'),
             'artist_titles' => $product->artists->pluck('title'),
+            'created_at' => $product->source_created_at ? $product->source_created_at->toIso8601String() : null,
+            'modified_at' => $product->source_modified_at ? $product->source_modified_at->toIso8601String() : null,
         ];
 
         // Enables ?fields= functionality

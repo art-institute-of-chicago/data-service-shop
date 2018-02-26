@@ -7,6 +7,11 @@ use Aic\Hub\Foundation\AbstractModel as BaseModel;
 class Product extends BaseModel
 {
 
+    protected $casts = [
+        'source_created_at' => 'date',
+        'source_modified_at' => 'date',
+    ];
+
     public function category()
     {
 
