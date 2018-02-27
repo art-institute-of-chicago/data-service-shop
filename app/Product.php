@@ -116,8 +116,6 @@ class Product extends BaseModel
         $this->back_order_due_date = $source->backorderDueDate;
         $this->source_created_at = $source->createdDate;
         $this->source_modified_at = $source->lastUpdated;
-        $this->member_price = $source->memberPrice;
-        $this->member_price = $source->memberPrice;
 
         foreach ($source->facets as $f)
         {
