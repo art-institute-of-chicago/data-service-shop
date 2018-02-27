@@ -12,6 +12,8 @@ class CategoryTransformer extends AbstractTransformer
 
         $data = [
             'id' => $category->id,
+            'parent_id' => $category->parent_id,
+            'title' => $category->title,
         ];
 
         // Enables ?fields= functionality
