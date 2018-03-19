@@ -15,6 +15,7 @@ class ProductTransformer extends AbstractTransformer
             'title' => $product->title,
             'description' => $product->description,
             'web_url' => $product->web_url,
+            'image_url' => $product->image_url,
             'sort_title' => $product->title_sort,
             'parent_id' => $product->parent_id,
             'parent_title' => $product->parent->title ?? null,

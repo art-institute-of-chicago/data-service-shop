@@ -7,6 +7,10 @@ use Aic\Hub\Foundation\AbstractModel as BaseModel;
 class Category extends BaseModel
 {
 
+    protected $casts = [
+        'parent_id' => 'integer',
+    ];
+
     public function parent()
     {
 
@@ -18,7 +22,7 @@ class Category extends BaseModel
     {
 
         $this->id = $source->id;
-        $this->parent_id = $source->parentId;
+        $this->parent_id = $source->parentId ?? 0;
         $this->title = $source->name;
 
     }

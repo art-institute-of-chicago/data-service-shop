@@ -3,6 +3,7 @@
 namespace App;
 
 use Aic\Hub\Foundation\AbstractModel as BaseModel;
+use Carbon\Carbon;
 
 class Product extends BaseModel
 {
@@ -114,8 +115,8 @@ class Product extends BaseModel
         $this->choking_hazard = $source->chokingHazard;
         $this->back_order = $source->backorder;
         $this->back_order_due_date = $source->backorderDueDate;
-        $this->source_created_at = $source->createdDate;
-        $this->source_modified_at = $source->lastUpdated;
+        $this->source_created_at = (new Carbon($source->createdDate))->timestamp;
+        $this->source_modified_at = (new Carbon($source->lastUpdated))->timestamp;
 
         foreach ($source->facets as $f)
         {
