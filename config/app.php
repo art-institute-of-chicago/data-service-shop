@@ -156,14 +156,13 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
 
         /*
          * Foundation Service Providers...
          */
         Aic\Hub\Foundation\ResourceServiceProvider::class,
+        Aic\Hub\Foundation\RouteServiceProvider::class,
 
     ],
 
