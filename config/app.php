@@ -52,16 +52,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Package Service Providers...
-         */
-
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-
-        /*
          * Foundation Service Providers...
          */
         Aic\Hub\Foundation\DefaultConfigServiceProvider::class,
