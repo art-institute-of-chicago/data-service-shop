@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
-class Download extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+class Download extends BaseCommand
 {
 
     protected $signature = 'download';
