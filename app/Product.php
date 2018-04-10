@@ -11,6 +11,12 @@ class Product extends BaseModel
     protected $casts = [
         'source_created_at' => 'date',
         'source_modified_at' => 'date',
+        'aic_collection' => 'boolean',
+        'holiday' => 'boolean',
+        'architecture' => 'boolean',
+        'glass' => 'boolean',
+        'choking_hazard' => 'boolean',
+        'back_order' => 'boolean',
     ];
 
     public function category()
