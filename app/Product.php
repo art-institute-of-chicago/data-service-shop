@@ -17,6 +17,7 @@ class Product extends BaseModel
         'glass' => 'boolean',
         'choking_hazard' => 'boolean',
         'back_order' => 'boolean',
+        'active' => 'boolean',
     ];
 
     public function category()
@@ -102,6 +103,7 @@ class Product extends BaseModel
         $this->category_id = $source->catId;
         $this->sku = $source->sku ?: null;
         $this->external_sku = $source->externalSku;
+        $this->active = $source->active;
         $this->title = $source->name;
         $this->title_sort = $source->sortName;
         $this->image_url = $source->image;
