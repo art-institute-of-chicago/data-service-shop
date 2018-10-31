@@ -9,12 +9,12 @@ use Artisan;
 class Kernel extends ConsoleKernel
 {
     /**
-     * The Artisan commands provided by your application.
+     * Use this to import third-party commands.
      *
      * @var array
      */
     protected $commands = [
-        //
+        \Aic\Hub\Foundation\Commands\DatabaseReset::class
     ];
 
     /**
@@ -46,7 +46,5 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-
-        require base_path('routes/console.php');
     }
 }

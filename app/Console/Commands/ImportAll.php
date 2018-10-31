@@ -2,11 +2,20 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Storage;
+use Illuminate\Support\Facades\Storage;
+
+use App\Category;
+use App\Keyword;
+use App\Style;
+use App\Origin;
+use App\Color;
+use App\Stone;
+use App\Artist;
 use App\Product;
 
-class ImportAll extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+class ImportAll extends BaseCommand
 {
 
     /**
@@ -26,17 +35,6 @@ class ImportAll extends Command
 
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -44,14 +42,14 @@ class ImportAll extends Command
     public function handle()
     {
 
-        $this->import(\App\Category::class);
-        $this->import(\App\Keyword::class);
-        $this->import(\App\Style::class);
-        $this->import(\App\Origin::class);
-        $this->import(\App\Color::class);
-        $this->import(\App\Stone::class);
-        $this->import(\App\Artist::class);
-        $this->import(\App\Product::class);
+        $this->import( Category::class );
+        $this->import( Keyword::class );
+        $this->import( Style::class );
+        $this->import( Origin::class );
+        $this->import( Color::class );
+        $this->import( Stone::class );
+        $this->import( Artist::class );
+        $this->import( Product::class );
 
     }
 
@@ -101,7 +99,7 @@ class ImportAll extends Command
 
         $basename = strtolower(class_basename($class));
 
-        if ($class != \App\Origin::class)
+        if ($class != Origin::class)
         {
 
             $basename = str_plural($basename);
@@ -115,44 +113,16 @@ class ImportAll extends Command
     public function idField($class)
     {
 
-        if ($class == \App\Keyword::class)
-        {
+        $classes = [
+            Keyword::class => 'keywordId',
+            Color::class => 'colorId',
+            Origin::class => 'originId',
+            Stone::class => 'stoneId',
+            Style::class => 'styleId',
+            Category::class => ['id', 'parentId'],
+        ];
 
-            return 'keywordId';
-
-        }
-        elseif ($class == \App\Color::class)
-        {
-
-            return 'colorId';
-
-        }
-        elseif ($class == \App\Origin::class)
-        {
-
-            return 'originId';
-
-        }
-        elseif ($class == \App\Stone::class)
-        {
-
-            return 'stoneId';
-
-        }
-        elseif ($class == \App\Style::class)
-        {
-
-            return 'styleId';
-
-        }
-        elseif ($class == \App\Category::class)
-        {
-
-            return ['id', 'parentId'];
-
-        }
-
-        return 'id';
+        return $classes[ $class ] ?? 'id';
 
     }
 

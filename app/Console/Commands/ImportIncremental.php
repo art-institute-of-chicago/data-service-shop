@@ -2,11 +2,20 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Storage;
+use Illuminate\Support\Facades\Storage;
+
+use App\Category;
+use App\Keyword;
+use App\Style;
+use App\Origin;
+use App\Color;
+use App\Stone;
+use App\Artist;
 use App\Product;
 
-class ImportIncremental extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+class ImportIncremental extends BaseCommand
 {
 
     /**
@@ -26,17 +35,6 @@ class ImportIncremental extends Command
 
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -44,14 +42,14 @@ class ImportIncremental extends Command
     public function handle()
     {
 
-        $this->import(\App\Category::class);
-        $this->import(\App\Keyword::class);
-        $this->import(\App\Style::class);
-        $this->import(\App\Origin::class);
-        $this->import(\App\Color::class);
-        $this->import(\App\Stone::class);
-        $this->import(\App\Artist::class);
-        $this->import(\App\Product::class);
+        $this->import( Category::class );
+        $this->import( Keyword::class );
+        $this->import( Style::class );
+        $this->import( Origin::class );
+        $this->import( Color::class );
+        $this->import( Stone::class );
+        $this->import( Artist::class );
+        $this->import( Product::class );
 
     }
 
@@ -62,10 +60,8 @@ class ImportIncremental extends Command
 
         if (!Storage::exists($filename))
         {
-
             $this->error($filename .' does not exist. Please run `php artisan download` to get all the JSON files locally, first.');
             exit;
-
         }
 
         $contents = Storage::get($filename);
@@ -80,9 +76,7 @@ class ImportIncremental extends Command
                 $resource = $class::find([$id[0] => snake_case($id[0]), $id[1] => snake_case($id[1])])->first();
                 if (!$resource)
                 {
-
                     $resource = new $class;
-
                 }
             }
             else
@@ -103,9 +97,7 @@ class ImportIncremental extends Command
 
         if ($class != \App\Origin::class)
         {
-
             $basename = str_plural($basename);
-
         }
 
         return $basename .'.json';
@@ -115,41 +107,26 @@ class ImportIncremental extends Command
     public function idField($class)
     {
 
-        if ($class == \App\Keyword::class)
+        switch ($class)
         {
-
-            return 'keywordId';
-
-        }
-        elseif ($class == \App\Color::class)
-        {
-
-            return 'colorId';
-
-        }
-        elseif ($class == \App\Origin::class)
-        {
-
-            return 'originId';
-
-        }
-        elseif ($class == \App\Stone::class)
-        {
-
-            return 'stoneId';
-
-        }
-        elseif ($class == \App\Style::class)
-        {
-
-            return 'styleId';
-
-        }
-        elseif ($class == \App\Category::class)
-        {
-
-            return ['id', 'parentId'];
-
+            case Keyword::class:
+                return 'keywordId';
+                break;
+            case Color::class:
+                return 'colorId';
+                break;
+            case Origin::class:
+                return 'originId';
+                break;
+            case Stone::class:
+                return 'stoneId';
+                break;
+            case Style::class:
+                return 'styleId';
+                break;
+            case Category::class:
+                return ['id', 'parentId'];
+                break;
         }
 
         return 'id';
