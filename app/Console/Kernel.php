@@ -32,8 +32,7 @@ class Kernel extends ConsoleKernel
             ->before(function () {
                 Artisan::call('download', ['--quiet' => 'default']);
             })
-            ->sendOutputTo(storage_path('logs/import-last-run.log'))
-            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+            ->sendOutputTo(storage_path('logs/import-last-run.log'));
 
     }
 
