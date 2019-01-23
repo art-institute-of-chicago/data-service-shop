@@ -119,7 +119,7 @@ class Product extends BaseModel
         $this->architecture = $source->architecture;
         $this->glass = $source->glass;
         $this->x_shipping_charge = $source->xShippingCharge;
-        $this->inventory = $source->memberPrice;
+        $this->inventory = $source->inventory;
         $this->choking_hazard = $source->chokingHazard;
         $this->back_order = $source->backorder;
         $this->back_order_due_date = $source->backorderDueDate;
