@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 use App\Category;
 use App\Keyword;
@@ -42,13 +43,18 @@ class ImportAll extends BaseCommand
     public function handle()
     {
 
-        $this->import( Category::class );
+        DB::transaction(function () {
+            Category::truncate();
+            $this->import( Category::class );
+        });
+
         $this->import( Keyword::class );
         $this->import( Style::class );
         $this->import( Origin::class );
         $this->import( Color::class );
         $this->import( Stone::class );
         $this->import( Artist::class );
+
         $this->import( Product::class );
 
     }
