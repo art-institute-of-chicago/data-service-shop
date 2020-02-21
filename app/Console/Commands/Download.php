@@ -31,27 +31,13 @@ class Download extends BaseCommand
 
     }
 
-
     private function downloadFile($resource)
     {
-
-        $res = $this->queryService($resource);
-
         $file = $resource .'.json';
 
-        Storage::put($file, json_encode($res, JSON_PRETTY_PRINT));
+        Storage::put($file, file_get_contents(env('SHOP_API') .$resource));
 
         $this->info('Saved ' . $file);
-
-    }
-
-    private function queryService($endpoint)
-    {
-
-        $res = file_get_contents(env('SHOP_API') .$endpoint);
-
-        return json_decode($res);
-
     }
 
 }
