@@ -33,9 +33,23 @@ class Download extends BaseCommand
 
     private function downloadFile($resource)
     {
-        $file = $resource .'.json';
+        $file = $resource . '.json';
 
-        Storage::put($file, file_get_contents(env('SHOP_API') .$resource));
+        $url = env('SHOP_API') . $resource;
+        $proxy = env('CURL_PROXY');
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+
+        $contents = curl_exec($ch);
+
+        curl_close($ch);
+
+        Storage::put($file, $contents);
 
         $this->info('Saved ' . $file);
     }
