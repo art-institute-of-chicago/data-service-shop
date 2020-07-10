@@ -28,7 +28,6 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('import:all --quiet')
             ->dailyAt('02:' .(config('app.env') == 'production' ? '00' : '15'))
-            ->withoutOverlapping()
             ->before(function () {
                 Artisan::call('download', ['--quiet' => 'default']);
             })
