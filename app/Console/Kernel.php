@@ -26,11 +26,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-        $schedule->command('import:all --quiet')
+        $schedule->command('import:products --quiet')
             ->dailyAt('02:' .(config('app.env') == 'production' ? '00' : '15'))
-            ->before(function () {
-                Artisan::call('download', ['--quiet' => 'default']);
-            })
             ->sendOutputTo(storage_path('logs/import-last-run.log'));
 
     }
