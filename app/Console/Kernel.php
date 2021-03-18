@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-        $schedule->command('import:products --quiet')
+        $schedule->command('import:products --quiet --reset')
             ->dailyAt('02:' .(config('app.env') == 'production' ? '00' : '15'))
             ->sendOutputTo(storage_path('logs/import-last-run.log'));
 
