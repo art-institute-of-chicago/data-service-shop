@@ -68,16 +68,4 @@ class ImportProducts extends BaseCommand
             $product->save();
         }
     }
-
-        /**
-     * Helper to parse the CSV-specific datetime format.
-     *
-     * @return string
-     */
-    private function timestamp( $string ) {
-
-        // Sample input: 8/28/2017 10:30:00 AM
-        // Examining the events on the website revealed that the CSV serves them in this timezone
-        return Carbon::createFromFormat('n/j/Y G:i:s A', $string, 'America/Chicago');
-    }
 }
