@@ -50,6 +50,9 @@ class ImportProducts extends BaseCommand
         $records = $csv->getRecords();
 
         foreach( $records as $datum ) {
+            if (empty($datum['title'])) {
+                continue;
+            }
 
             $product = \App\Product::findOrNew( $datum['id'] );
 
