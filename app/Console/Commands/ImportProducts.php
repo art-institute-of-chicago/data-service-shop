@@ -59,6 +59,7 @@ class ImportProducts extends BaseCommand
             $product->id = $datum['id'];
             $product->title = $datum['title'];
             $product->external_sku = $datum['external_sku'];
+            $product->description = $datum['description'];
             $product->source_modified_at = new Carbon( $datum['load_date'] );
             $product->min_compare_at_price = floatval($datum['min_compare_at_price']);
             $product->max_compare_at_price = floatval($datum['max_compare_at_price']);
