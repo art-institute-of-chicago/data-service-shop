@@ -4,7 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Artisan;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,22 +13,19 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Aic\Hub\Foundation\Commands\DatabaseReset::class
+        \Aic\Hub\Foundation\Commands\DatabaseReset::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-
         $schedule->command('import:products --quiet --reset')
-            ->dailyAt('02:' .(config('app.env') == 'production' ? '00' : '15'))
+            ->dailyAt('02:' . (config('app.env') === 'production' ? '00' : '15'))
             ->sendOutputTo(storage_path('logs/import-last-run.log'));
-
     }
 
     /**
@@ -39,6 +35,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
     }
 }

@@ -12,7 +12,6 @@ class ProductTransformer extends AbstractTransformer
 
     public function transform($product)
     {
-
         $data = [
             'id' => $product->id,
             'title' => $product->title,
@@ -30,7 +29,6 @@ class ProductTransformer extends AbstractTransformer
 
         // Enables ?fields= functionality
         return parent::transform($data);
-
     }
 
     /**
@@ -92,7 +90,7 @@ class ProductTransformer extends AbstractTransformer
             // libxml_use_internal_errors(true) && libxml_clear_errors();
             $dom = new DOMDocument();
             $dom->loadHTML('<?xml encoding="utf-8" ?>' . $html);
-            $html  = ''; // Clear var for returning output
+            $html = ''; // Clear var for returning output
             $xpath = new DOMXPath($dom);
 
             // Remove empty tags
@@ -100,20 +98,22 @@ class ProductTransformer extends AbstractTransformer
                 if ($node->nodeName === 'br') {
                     continue;
                 }
+
                 $node->parentNode->removeChild($node);
             }
 
             // Remove all attributes
             foreach ($xpath->query('//*') as $node) {
-                for ($i = $node->attributes->length -1; $i >= 0; $i--) {
+                for ($i = $node->attributes->length - 1; $i >= 0; $i--) {
                     $attribute = $node->attributes->item($i);
                     $node->removeAttributeNode($attribute);
                 }
             }
 
             // We are only interested in saving the `body` content
-            $body     = $xpath->query('//body');
+            $body = $xpath->query('//body');
             $children = $body->item(0)->childNodes;
+
             foreach ($children as $child) {
                 $html .= $child->ownerDocument->saveHtml($child);
             }

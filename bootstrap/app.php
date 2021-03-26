@@ -12,7 +12,7 @@
 */
 
 $app = new Illuminate\Foundation\Application(
-    realpath(__DIR__.'/../')
+    realpath(__DIR__ . '/../')
 );
 
 /*
@@ -27,7 +27,7 @@ $app = new Illuminate\Foundation\Application(
 */
 
 $app->singleton(
-	Illuminate\Contracts\Http\Kernel::class,
+    Illuminate\Contracts\Http\Kernel::class,
     Aic\Hub\Foundation\HttpKernel::class
 );
 
